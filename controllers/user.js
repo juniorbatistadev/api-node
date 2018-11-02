@@ -6,45 +6,34 @@ var response = {}
 
 
 function login(req, res){
-    //verificar contrasena
-     User.findOne({username:req.body.username}, function(err, user){
-    //chekear si hay errore
-        if(err) {
-           response.error = true;
-           responde.message = err;
-        }else{
-            if(bcrypt.compareSync(req.body.password, user.password )){
-                //crear token para login
-                user.token =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-                user.save((err,save) => {
-                    if(err){
-                        response.error = true;
-                        response.message = err;
-                    }else{
-                        user.set({password:null});
-                        //formart respuesta al cliente
-                        response.message = "User Logged",
-                        response.login = true,
-                        response.user = user 
-                    }
-                });
-            }else{
-                response.message = "Credenciales incorrectos",
-                response.login = false;
-                response.error = true; 
-            }
 
+    User.find({username:req.body.username})
+    .exec()
+    .then(user => {
+        if(user.length > 0 && bcrypt.compareSync(req.body.password, user[0].password )){
+                //crear token para login
+                        user[0].token =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                        user[0].save((err,save) => {
+                            if(err){
+                                throw "Error en Login"
+                            }else{
+                                user[0].set({password:null});
+                                //formart respuesta al cliente
+                                res.status(200).json({
+                                    user: user[0]
+                                })
+                            }
+                        });
+        }else{
+            throw "Contrasena incorrecta"
         }
-    });
-    res.type('json'); 
-    
-    if(response.error){
-        res.status(400).send(response);
-    }else{
-        res.status(200).send(response);
     }
 
-    response = {};
+    ).catch(err => {
+        res.status(404).json({
+            error : 'error: '+ err
+        });
+    })
 }
 
 
@@ -65,29 +54,21 @@ function signUp(req, res){
     //Intentar guardar en la base de datos si hay error enviar error sino crear respuesta
     newUser.save(function(err, newUser){
         if(err) {
-                response.message = err,
-                response.error = true,
-                response.registrado = false
-
+            res.status(404).json({
+                err: 'Usuario no registrado'+err
+            })
         }else{
           
-            response.message= "Usuario Registrado",
-            response.registrado = true
+           res.status(200).json({
+               message: 'Usuario registrado'
+           })
             
         }
-        res.type('json'); 
-    
-        //enviar repuesta
-        if (response.error){
-            res.status(400).send(response);
-        }else{
-            res.status(200).send(response);
-        }
-        
+
     })
     
     
-   ;
+   
 
 }
 
