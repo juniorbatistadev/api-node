@@ -3,6 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//base de datos
+var db = require('./db');
+
+//rutas
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
