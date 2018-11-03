@@ -1,9 +1,6 @@
 var User = require('../model/User');
 const bcrypt = require('bcrypt');
 
-// declara varible de repuesta
-var response = {}
-
 
 function login(req, res){
 
