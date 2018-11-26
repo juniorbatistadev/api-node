@@ -12,6 +12,13 @@ router.post('/create', checkAuth, function(req, res , next){
   postController.create(req, res);
 });
 
+router.post('/:postId/comment', checkAuth, function(req, res , next){
+    postController.commentPost(req, res);
+  });
+
+router.get('/:postId/comments', function(req, res, next) {
+    postController.getComments(req, res);
+});
 
   
 

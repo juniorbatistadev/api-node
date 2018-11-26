@@ -1,16 +1,19 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
+var Schema = mongoose.Schema;
 
 var postSchema = new mongoose.Schema({
     username: {
-        type:String
+        type:String,
+        required: true
+
     },
     content:  {
         type:String,
         required: true
     },
     comments:{
-        type:Array,
+        type:[{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     }
     
   });
