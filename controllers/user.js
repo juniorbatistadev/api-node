@@ -33,7 +33,19 @@ function login(req, res){
     })
 }
 
-
+function getUserByUsername(req, res){
+    User.find({username: req.params.username})
+    .exec()
+    .then((user)=>{
+        if(user.length > 0){
+            res.json(user);
+        }else{
+            res.json({
+                error: 'Usario noencontrado'
+            })
+        }
+    })
+}
 
 function signUp(req, res){
     //hash contrasena
@@ -73,5 +85,6 @@ function signUp(req, res){
 
 module.exports ={
     login : login,
-    signUp: signUp
+    signUp: signUp,
+    getUserByUsername: getUserByUsername
 }

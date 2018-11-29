@@ -16,4 +16,8 @@ router.post('/signup', function(req, res, next){
   userController.signUp(req,res);
 });
 
+router.get('/:username', function(req, res , next){
+  userController.getUserByUsername(req, res);
+})
+
 module.exports = router;
