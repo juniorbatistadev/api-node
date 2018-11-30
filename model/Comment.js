@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
 
 var commentSchema = new mongoose.Schema({
     post: {
@@ -17,7 +16,6 @@ var commentSchema = new mongoose.Schema({
     
   });
 
-commentSchema.plugin(uniqueValidator);
 var Comment = mongoose.model('Comment', commentSchema);
 
 
