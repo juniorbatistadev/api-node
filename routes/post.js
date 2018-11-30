@@ -20,6 +20,9 @@ router.get('/:postId/comments', function(req, res, next) {
     postController.getComments(req, res);
 });
 
+router.post('/:postId/like', checkAuth, function(req, res , next){
+    postController.likePost(req, res);
+  });
   
 
 module.exports = router;
