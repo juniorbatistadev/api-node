@@ -85,7 +85,20 @@ function getComments(req, res){
 }
 
 
+//dar likes
+function darLike (req, res){
 
+    Post.findOne({_id:req, res, next})
+    const like = new Like ({
+        username: req.userData.username,
+        post: req.params.postId,
+
+    });
+
+    like.save();
+    post.save();
+    
+}
 
 
 module.exports ={
