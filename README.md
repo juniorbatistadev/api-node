@@ -25,5 +25,5 @@ Devuelve todos los post
 Para comentar en un post
 
 6)/:postId/comments - GET
-
+88888
 Para ver comentarios de un post
