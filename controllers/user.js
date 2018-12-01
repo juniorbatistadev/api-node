@@ -33,6 +33,7 @@ function login(req, res){
     })
 }
 
+//buscar usuario por username
 function getUserByUsername(req, res){
     User.find({username: req.params.username})
     .exec()
@@ -41,7 +42,7 @@ function getUserByUsername(req, res){
             res.json(user);
         }else{
             res.json({
-                error: 'Usario noencontrado'
+                error: 'Usuario no encontrado'
             })
         }
     })
@@ -75,12 +76,9 @@ function signUp(req, res){
         }
 
     })
-    
-    
-   
+ 
 
 }
-
 
 
 module.exports ={
