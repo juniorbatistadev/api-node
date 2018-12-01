@@ -1,5 +1,7 @@
 var User = require('../model/User');
 const bcrypt = require('bcrypt');
+const router = express.Router();
+var formidable = require('formidable');
 
 
 function login(req, res){
@@ -51,7 +53,7 @@ function signUp(req, res){
     //hash contrasena
     var hash = (req.body.password) ? bcrypt.hashSync(req.body.password, 10): null;
 
-    // crear model del usuario
+    // crear modelo del usuario
     var newUser = new User ({
         username: req.body.username,
         password: hash,
@@ -76,8 +78,35 @@ function signUp(req, res){
 
     })
     
-    
-   
+    //subir foto de perfil
+    router.post('/', function(req, res) {
+
+        var form =new formidable.IncomingForm();
+        form.parse(req);
+        let reqPath= path.join(__dirname, '../');
+        let newfilename;
+       
+        form.on('fileBegin', function(name, file){
+            file.path = reqPath+ 'public/upload/'+ req.user.username + file.name;
+            newfilename= req.user.username+ file.name;
+        });
+       
+        form.on('file', function(name, file) {
+            User.findOneAndUpdate({
+                username: req.user.username
+            },
+            {
+                'profile_pic': newfilename
+            },
+            function(err, result){
+                if(err) {
+                    console.log(err);
+                }
+            });
+        });
+        req.flash('success_msg', 'Your profile picture has been uploaded');
+        res.redirect('/');
+    });  
 
 }
 
