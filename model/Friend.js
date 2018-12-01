@@ -1,6 +1,4 @@
 var mongoose = require('mongoose');
-var friends = require("mongoose-friends")
-
 
 const FriendRequestSchema = new Schema({
 
@@ -16,7 +14,7 @@ const FriendRequestSchema = new Schema({
         ref: 'User'
     },
 
-    status: { // 0 = solicitud enviada, 1 = solicitud aceptada, 2 = solicitud denegada, 3 = amigos
+    status: { // 0 = añadir, 1 = solicitud enviada, 2 = solicitud pendiente, 3 = amigos
         type: int,
         required: true 
     }
