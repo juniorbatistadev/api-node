@@ -27,6 +27,12 @@ var userSchema = new mongoose.Schema({
     profile_pic:{
         type: String,
         required: true
+    },
+
+    friends: {
+            type: Schema.ObjectId,
+            required: true,
+            ref: 'Friend'
     }
     
   });

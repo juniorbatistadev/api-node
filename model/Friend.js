@@ -1,39 +1,26 @@
 var mongoose = require('mongoose');
+var friends = require("mongoose-friends")
 
 
-const sentRequestSchema = new mongoose.Schema({
-    username: {
-        type: String, 
-        default: ''}
-}),
+const FriendRequestSchema = new Schema({
 
-const requestSchema = new mongoose.Schema ({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId, 
+    requester: { //quien envia la solicitud
+        type: int,
+        required: true,
         ref: 'User'
-        },
+    },
 
-        username: {
-            type: String, 
-            default: ''
-        }
-}),
-
-const friendsListSchema = new mongoose.Schema ({
-    friendId: {
-        type: mongoose.Schema.Types.ObjectId, 
+    receiver: { //quien recibe la solicitud
+        type: int,
+        required: true,
         ref: 'User'
-        },
-        
-        friendName: {
-            type: String, 
-            default: '' 
-        }
-}),
+    },
 
-var sentRq  = mongoose.model('sentRq', sentRequestSchema);
-module.exports = sentRq;
+    status: { // 0 = solicitud enviada, 1 = solicitud aceptada, 2 = solicitud denegada, 3 = amigos
+        type: int,
+        required: true 
+    }
+    });
 
-module.exports = mongoose.model ('request', requestSchema)
 
-module.exports = mongoose.model('friendList', friendsListSchema);
+var FriendRequestSchema = module.exports = mongoose.model('Friend', FriendRequestSchema);

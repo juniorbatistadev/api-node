@@ -35,6 +35,7 @@ function login(req, res){
     })
 }
 
+//encontrar usuario
 function getUserByUsername(req, res){
     User.find({username: req.params.username})
     .exec()
@@ -43,14 +44,14 @@ function getUserByUsername(req, res){
             res.json(user);
         }else{
             res.json({
-                error: 'Usario noencontrado'
+                error: 'Usario no encontrado'
             })
         }
     })
 }
 
 function signUp(req, res){
-    //hash contrasena
+    //hash contraseña
     var hash = (req.body.password) ? bcrypt.hashSync(req.body.password, 10): null;
 
     // crear modelo del usuario
@@ -78,6 +79,7 @@ function signUp(req, res){
 
     })
     
+    
     //subir foto de perfil
     router.post('/', function(req, res) {
 
@@ -88,7 +90,7 @@ function signUp(req, res){
        
         form.on('fileBegin', function(name, file){
             file.path = reqPath+ 'public/upload/'+ req.user.username + file.name;
-            newfilename= req.user.username+ file.name;
+            newfilename = req.user.username + file.name;
         });
        
         form.on('file', function(name, file) {
@@ -104,7 +106,8 @@ function signUp(req, res){
                 }
             });
         });
-        req.flash('success_msg', 'Your profile picture has been uploaded');
+
+        req.flash('success_msg', 'Tu foto ha publicado');
         res.redirect('/');
     });  
 
