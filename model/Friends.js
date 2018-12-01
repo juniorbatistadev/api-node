@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var friends = require("mongoose-friends")
+
 
 const FriendRequestSchema = new Schema({
 
