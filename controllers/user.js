@@ -36,7 +36,11 @@ function login(req, res){
     })
 }
 
+
 //encontrar usuario
+
+//buscar usuario por username
+
 function getUserByUsername(req, res){
     User.find({username: req.params.username})
     .exec()
@@ -81,10 +85,11 @@ function signUp(req, res){
         }
 
     })
-    
+
     
     //subir foto de perfil 
     router.post('/', function(req, res) {
+
 
         var form = new formidable.IncomingForm();
         form.parse(req);
@@ -113,11 +118,10 @@ function signUp(req, res){
         req.flash('success_msg', 'Tu foto ha publicado');
         res.redirect('/');
     });  
-
 }
 
-module.exports ={
+module.exports = {
     login : login,
     signUp: signUp,
     getUserByUsername: getUserByUsername
-}
+} 

@@ -4,6 +4,10 @@ const Friend = require('../model/Friend');
 /*permite a los usuarios A y B ver el estatus de la solicitud. Si (por ejemplo), el usuario A envia la solicitud
 *este verá "solicitado" mientras que el usuario B verá que tiene solicitudes pendientes
 */
+<<<<<<< HEAD
+=======
+
+>>>>>>> 60e4bf8015067ab45fa72512f81586f403c27aa9
 const docA = await Friend.findOneAndUpdate(
     { requester: UserA, receiver: UserB },
     { $set: { status: 1 }},
