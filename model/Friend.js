@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-const FriendRequestSchema = new Schema({
+const FriendRequestSchema = new mongoose.Schema({
 
     requester: { //quien envia la solicitud
         type: int,

@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 
         if(user.length < 1){
             res.status(404).json({
-                error: "Auth failed"+err
+                error: "Auth failed json web tokken is incorrect XD"
             });
         }else{
             req.userData = user[0];

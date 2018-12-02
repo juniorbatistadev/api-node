@@ -4,7 +4,7 @@ var MensajeChat = require('../model/MensajeChat');
 function enviar(req, res, next){
 
     let newMessage = new MensajeChat({
-        username: req.userData.username,
+        username: req.body.username,
         content: req.body.content
     }) 
 

@@ -29,12 +29,12 @@ var userSchema = new mongoose.Schema({
         required: true
     },
 
-    friends: {
-            type: Schema.ObjectId,
-            required: true,
+    /*friends: {
+            type: mongoose.Schema.ObjectId,
+            required: false,
             ref: 'Friend'
     }
-    
+    */
   });
 
 userSchema.plugin(uniqueValidator);

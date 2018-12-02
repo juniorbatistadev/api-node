@@ -35,7 +35,7 @@ function getPosts(req, res, next){
     })
 }
 
-//publicar comentarios a un posts
+
 function commentPost(req,res,next){
    Post.findOne({_id:req.params.postId})
    .exec()

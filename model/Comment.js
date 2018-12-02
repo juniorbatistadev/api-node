@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose = require("./../db")
 
 var commentSchema = new mongoose.Schema({
-    post: {
+    post_id: {
         type:String,
         required : true
     },
@@ -12,9 +12,12 @@ var commentSchema = new mongoose.Schema({
     username:{
         type:String,
         required:true
-    }
+    },
+    photo: {
+        type: [{type: Schema.Type.ObjectId, ref: 'Photo'}]
+        }
     
-  });
+  })
 
 var Comment = mongoose.model('Comment', commentSchema);
 

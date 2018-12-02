@@ -1,5 +1,4 @@
-var mongoose = require('mongoose');
-
+var mongoose = require('./../db');
 var MensajeChatSchema = new mongoose.Schema({
     content:  {
         type:String,

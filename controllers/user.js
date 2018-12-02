@@ -1,3 +1,4 @@
+const express = require('express')
 var User = require('../model/User');
 const bcrypt = require('bcrypt');
 const router = express.Router();
@@ -44,13 +45,14 @@ function getUserByUsername(req, res){
             res.json(user);
         }else{
             res.json({
-                error: 'Usario no encontrado'
+                error: 'Usuario no encontrado'
             })
         }
     })
 }
 
 function signUp(req, res){
+    
     //hash contraseña
     var hash = (req.body.password) ? bcrypt.hashSync(req.body.password, 10): null;
 
@@ -62,15 +64,16 @@ function signUp(req, res){
         email: req.body.email,
         profile_pic: 'default.png'
     });
-
+    console.log(JSON.stringify(newUser, null, 2))
     //Intentar guardar en la base de datos si hay error enviar error sino crear respuesta
     newUser.save(function(err, newUser){
+        
         if(err) {
             res.status(404).json({
-                err: 'Usuario no registrado'+err
+                err: 'Usuario no registrado '+err
             })
         }else{
-          
+         
            res.status(200).json({
                message: 'Usuario registrado'
            })
@@ -80,16 +83,16 @@ function signUp(req, res){
     })
     
     
-    //subir foto de perfil
+    //subir foto de perfil 
     router.post('/', function(req, res) {
 
-        var form =new formidable.IncomingForm();
+        var form = new formidable.IncomingForm();
         form.parse(req);
         let reqPath= path.join(__dirname, '../');
         let newfilename;
        
         form.on('fileBegin', function(name, file){
-            file.path = reqPath+ 'public/upload/'+ req.user.username + file.name;
+            file.path = reqPath+ 'public/uploads/'+ req.user.username + file.name;
             newfilename = req.user.username + file.name;
         });
        
@@ -112,8 +115,6 @@ function signUp(req, res){
     });  
 
 }
-
-
 
 module.exports ={
     login : login,
